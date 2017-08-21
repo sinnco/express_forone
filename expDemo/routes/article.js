@@ -12,7 +12,16 @@ router.get('/detail/:id', function (req, res, next)
 router.get('/show/:id', function (req, res, next)
 {
     //res.send(artmodel.title + " --> " + artmodel.content + " ,show method: " + req.params.id);
-    res.render("art", { title: artmodel.title, summary: artmodel.content + utils.gettime()});
+    //var st = artmodel.getlist(10, function (err, result)
+    //{
+        
+    //    res.render("art", { title: artmodel.title, summary: result });
+    //});
+    
+    var st2 = artmodel.getsqllist(10, function (err, result)
+    {
+        res.render("art", { title: artmodel.title, summary: result });
+    });
 });
 
 module.exports = router;

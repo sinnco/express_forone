@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //var cons = require("swig");
 var ejs = require("ejs");
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -27,6 +28,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('trust proxy', 1);
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: 60 * 1000 * 30 }
+}));
 
 app.use('/', index);
 app.use('/x/', users);
